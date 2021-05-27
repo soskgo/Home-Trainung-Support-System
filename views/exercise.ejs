@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/stylesheets/index.css">
+</head>
+
+<body>
+  <header>
+    <div class="fixed-top">
+      <header class="topbar">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <ul class="social-network">
+                <h4 style="color: white;"><i class="fas fa-user-plus"></i> <%= userid %> </h4>
+                <a href="/login" style="color:white;">로그아웃</a>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <nav class="navbar navbar-expand-lg navbar-dark mx-background-top-linear">
+        <div class="container">
+            <a class="navbar-brand" style="text-transform: uppercase">Home Training Service</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/exercise">운동트레이너
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/viewdata">기록확인</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/bmi">BML계산</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/sport">운동시설안내</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    </div>
+  </header>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="card booking-card">
+          <div class="view overlay">
+            <img class="card-img-top" src="/images/pushup.jpg" alt="Card image cap"  style="height: 30vh;">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title font-weight-bold"><a href="/pushup">Push Up Exercise</a></h4>
+            <ul class="list-unstyled list-inline rating mb-0">
+              <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
+              <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
+              <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
+              <li class="list-inline-item"><i class="fas fa-star-half-alt amber-text"></i></li>
+              <li class="list-inline-item">
+                <p class="text-muted">Level 3.5</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card booking-card">
+          <div class="view overlay">
+            <img class="card-img-top" src="/images/abdominal exercise.jpg" alt="Card image cap" style="height: 30vh;">
+            <a href="#!">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title font-weight-bold"><a href="/abdominal">Abdominal Exercise</a></h4>
+            <ul class="list-unstyled list-inline rating mb-0">
+              <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"> </i></li>
+              <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
+              <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
+              <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
+              <li class="list-inline-item">
+                <p class="text-muted">Level 4.0</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card booking-card">
+          <div class="view overlay">
+            <img class="card-img-top" src="/images/squat.jpg" alt="Card image cap" style="height: 30vh;">
+            <a href="#!">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title font-weight-bold"><a href="/squat">Squat Exercise</a></h4>
+            <ul class="list-unstyled list-inline rating mb-0">
+              <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"> </i></li>
+              <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
+              <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
+              <li class="list-inline-item">
+                <p class="text-muted">Level 3.0</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <br>
+    <br>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+</body>
+</html>

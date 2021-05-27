@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/stylesheets/index.css">
+</head>
+
+<header>
+    <div class="fixed-top">
+        <header class="topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul class="social-network">
+                            <h4 style="color: white;"><i class="fas fa-user-plus"></i> <%= userid %> </h4>
+                            <a href="/login" style="color:white;">로그아웃</a>
+                          </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <nav class="navbar navbar-expand-lg navbar-dark mx-background-top-linear">
+            <div class="container">
+                <a class="navbar-brand" style="text-transform: uppercase">Home Training Service</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/exercise">운동트레이너
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/viewdata">기록확인</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="/bmi">BML계산</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/sport">운동시설안내</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header">
+                    <h3>운동 트레이너</h3>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card-body" style="height: 67vh;">
+                            <button type="button" onclick="init()" class="btn btn-outline-success">시작</button>
+                            <button type="button" id="stopbtn" class="btn btn-outline-success">취소</button>
+                            <button type="button" id="save" class="btn btn-outline-success">저장</button>
+                            <div>
+                                <br>
+                                <canvas id="canvas">
+                                </canvas>
+                            </div>
+                            <div id="label-container"></div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <hr>
+                                    <h3 id="cnt">Count: 0</h3>
+                                    <h3 id="kcal">Kcal: 0</h3>
+                                    <div id="label-container"></div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="chart">
+                            <span class="percent"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="card booking-card">
+                <div class="view overlay">
+                    <img class="card-img-top" src="/images/squat.jpg" alt="Card image cap">
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled list-inline rating mb-0">
+                        <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"> </i></li>
+                        <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
+                        <li class="list-inline-item mr-0"><i class="fas fa-star amber-text"></i></li>
+                        <li class="list-inline-item">
+                            <p class="text-muted">Level 3.0</p>
+                        </li>
+                    </ul>
+                    <hr>
+                    <li>
+                        <h4>1</h4>다리를 어깨너비보다 약간 더 넓게 벌린다. 발끝이 앞쪽을 향하게 한다.
+                    </li>
+                    <br>
+                    <li>
+                        <h4>2</h4>이 자세에서 무릎을 구부려 엉덩이를 최대한 낮춘다. 이때 등은 바르게 펴야 한다.
+                    </li>
+                    <br>
+                    <li>
+                        <h4>3</h4>좀 더 완전하게 이 운동을 하고 싶다면, 스쿼트를 할 때 발가락에 무게를 실어 종아리 근육을 강화한다.
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
+<script type="text/javascript">
+    // More API functions here:
+    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
+
+    // the link to your model provided by Teachable Machine export panel
+    const URL = "/src/squat/";
+    let model, webcam, ctx, labelContainer, maxPredictions;
+
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        // load the model and metadata
+        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+        // Note: the pose library adds a tmPose object to your window (window.tmPose)
+        model = await tmPose.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        // 웹캠 설정
+        const size = 370;
+        const flip = true; // whether to flip the webcam
+        webcam = new tmPose.Webcam(size, size, flip); // width, height, flip
+        await webcam.setup(); // request access to the webcam
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        // append/get elements to the DOM
+        const canvas = document.getElementById("canvas");
+        canvas.width = size; canvas.height = size;
+        ctx = canvas.getContext("2d");
+        labelContainer = document.getElementById("label-container");
+        for (let i = 0; i < maxPredictions; i++) { // and class labels
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    }
+    async function loop(timestamp) {
+        webcam.update(); // update the webcam frame
+        await predict();
+        window.requestAnimationFrame(loop);
+    }
+    var status = "stand";
+    var count = 0;//카운트 변수
+    var kcal = 0;//칼로리 계산변수
+    async function predict() {
+        // Prediction #1: run input through posenet
+        // estimatePose can take in an image, video or canvas html element
+        const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+        // Prediction 2: run input through teachable machine classification model
+        const prediction = await model.predict(posenetOutput);
+
+        if (prediction[0].probability.toFixed(2) >= 0.9) {//차렷 상태
+            if (status == "down") {
+                count++;
+                kcal = (count * 0.4).toFixed(2);
+            }
+            $("#cnt").text("Count: " + count);
+                $("#kcal").text("Kcal: " + kcal + "kcal");
+            status = "stand";
+        }else if (prediction[1].probability.toFixed(2) >= 0.6) {//스쿼트 상태
+            status = "down";
+        }
+
+        for (let i = 0; i < maxPredictions; i++) {
+            const classPrediction =
+                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+        }
+        // finally draw the poses
+        drawPose(pose);
+    }
+    function drawPose(pose) {
+        if (webcam.canvas) {
+            ctx.drawImage(webcam.canvas, 0, 0);
+            // draw the keypoints and skeleton
+            if (pose) {
+                const minPartConfidence = 0.5;
+                tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+                tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+            }
+        }
+    }
+    window.onload = function () {
+        $('#stopbtn').click(function () {
+            $("#canvas").remove();
+        })
+        $("#save").click(function () {
+            if (count != 0) {
+                $.ajax({
+                    url: '/squat/save',
+                    type: 'GET',
+                    data: {
+                        sporttype: "squat",
+                        count: count,
+                        kcal: kcal,
+                    }
+                })
+            }
+        })
+    }
+</script>
+</body>
+</html>

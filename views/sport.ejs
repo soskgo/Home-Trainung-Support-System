@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= title %>
+    </title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100%;
+        }
+
+        p {
+            color: black;
+        }
+
+        table.dataTable tbody tr {
+            background-color: #343a40 !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            color: white !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+            color: black !important;
+        }
+    </style>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwlackxUI_dwYHI0P9MLhli3QdDJJ_JkQ&callback=initMap&libraries=&v=weekly"
+        defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js"
+        integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js"
+        integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+    <link rel="stylesheet" href="/stylesheets/jquery.dataTables.css" />
+</head>
+
+<body>
+    <div class="fixed-top">
+        <header class="topbar">
+            <div class="container">
+                <div class="row">
+                    <!-- social icon-->
+                    <div class="col-sm-12">
+                        <ul class="social-network">
+                            <h4 style="color: white;"><i class="fas fa-user-plus"></i>
+                                <%= userid %>
+                            </h4>
+                            <a href="/login" style="color:white;">로그아웃</a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <nav class="navbar navbar-expand-lg navbar-dark mx-background-top-linear">
+            <div class="container">
+                <a class="navbar-brand" style="text-transform: uppercase">Home Training Service</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/exercise">운동트레이너
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/viewdata">기록확인</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/bmi">BML계산</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/sport">운동시설안내</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card text-white bg-dark mb-3">
+                        <div class="card-header">검색 지도</div>
+                        <hr>
+                        <div class="card-body" style="height: 35vh;">
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="card text-white bg-dark mb-3">
+                        <div class="card-header">경기도 체육시설 데이터</div>
+                        <hr>
+                        <div class="card-body">
+                            <table id="gymtable" class="table table-dark" style="height:30vh; font-size: 0.5rem;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">도시</th>
+                                        <th scope="col">체육시설 이름</th>
+                                        <th scope="col">전화번호</th>
+                                        <th scope="col">주소</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="gymdata"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card  card text-right text-white bg-dark mb-3">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <div class="col-lg-8 col-sm-12">
+                                            <input type="text" class="form-control" id="address" name="address"
+                                                placeholder="운동시설 이름을 입력하시오" />
+                                        </div>
+                                        <div class="col-lg-4 col-sm-12">
+                                            <button type="submit" class="btn btn-outline-success"
+                                                onclick="Search()">검색</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="card-body">
+                            <div class="card text-center border-success mb-3">
+                                <div class="card-header" style="color:black;">운동시설 정보</div>
+                                <div class="card-body text-success">
+                                    <p>도시 <i class="fas fa-city"></i></p>
+                                    <p id="city_text" style="font-size: 4px"></p>
+                                    <hr>
+                                    <p>체육시설 이름 <i class="fas fa-dumbbell"></i></p>
+                                    <p id="name_text" style="font-size:4px"></p>
+                                    <hr>
+                                    <p>전화번호 <i class="fas fa-phone"></i></p>
+                                    <p id="tel_text" style="font-size: 4px"></p>
+                                    <hr>
+                                    <p>주소 <i class="fas fa-map-marked-alt"></i> </p>
+                                    <p id="address_text" style="font-size: 4px"></p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script src="http://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/@googlemaps/markerclustererplus/dist/index.min.js"></script>
+
+    <script>
+        var data = <% - rows %>;
+        gym = [];
+        var map = null;
+        var markers = null;
+        var infowindows = [];
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 37.435176, lng: 127.443604 },
+                zoom: 9,
+            });
+            markers = data.map((v, i) => {
+                var marker = new google.maps.Marker({
+                    position: { lat: Number(v["Latitude"]), lng: Number(v["Longitude"]) },
+                })
+                const contentString =
+                    '<div id="content">' +
+                    '<div id="siteNotice">' +
+                    "</div>" +
+                    '<h1 id="firstHeading" class="firstHeading" style="font-size:10px; color:black; text-align:center; border-bottom:1px solid black;">' + v["name"] + '</h1>' +
+                    '<div id="bodyContent">' +
+                    '<p style="font-size: 4px">도시 : ' + v["city"] + '</p><hr>' +
+                    '<p style="font-size:4px">체육시설 이름 : ' + v["name"] + '</p><hr>' +
+                    '<p style="font-size: 4px">전화번호 : ' + v["tel"] + '</p><hr>' +
+                    '<p style="font-size: 4px">주소 : ' + v["address"] + '</p><hr>' +
+                    "</div>" +
+                    "</div>";
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+                infowindows.push(infowindow);
+                marker.addListener("click", () => {
+                    infowindow.open(map, marker);
+                });
+                return marker;
+            });
+            new MarkerClusterer(map, markers, {
+                imagePath:
+                    "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+            });
+        }
+
+        function Search() {
+            var name = $("#address").val()
+            var findData = data.find(element => element.name == name)
+            var findData_index = data.findIndex(element => element.name == name)
+            $("#city_text").text(findData["city"])
+            $("#name_text").text(findData["name"])
+            $("#tel_text").text(findData["tel"] == null ? "전화번호가 없습니다." : findData["tel"])
+            $("#address_text").text(findData["address"])
+            map.setCenter({ lat: Number(findData["Latitude"]), lng: Number(findData["Longitude"]) })
+            map.setZoom(18)
+            infowindows[findData_index].open(map, markers[findData_index])
+        }
+        $(document).ready(function () {
+            $.each(data, function (i, v) {
+                var row = data[i];
+                $('#gymdata').append(
+                    '<tr>'
+                    + '<td>' + row.city + '</td>'
+                    + '<td>' + row.name + '</td>'
+                    + '<td>' + (row.tel == null ? "전화번호가 없습니다." : row.tel) + '</td>'
+                    + '<td>' + row.address + '</td>' +
+                    '</tr>'
+                )
+            })
+            $("#gymtable").DataTable({
+                scrollY: 350,
+                responsive: true,
+                autoWidth: false,
+                searching: false,
+                "lengthChange": false,
+                "info": false
+            });
+        })
+    </script>
+</body>
+
+</html>
